@@ -13,6 +13,13 @@ class NotesManager {
     return []
   }
 
+  get progress() {
+    const notes = this.notes.length
+    const completed = this.notes.filter((note) => note.completed).length
+
+    return { notes, completed }
+  }
+
   get mockNotes() {
     return mockNotes
   }

@@ -1,32 +1,36 @@
-import Button from '@material-ui/core/Button'
+import { useState, useEffect } from 'react'
+import ControlButton from 'components/ControlButton'
 import { useStyles } from 'styles/controlBtn'
+import notesCategories from 'util/NotesCategories'
 
 export default function ControlButtons() {
   const classes = useStyles()
+  const categories = Object.keys(notesCategories)
+  const [activeCategory, setActiveCategory] = useState('All')
+
+  useEffect(() => {
+    console.log('Active category changed to: ', activeCategory)
+  }, [activeCategory])
 
   return (
     <div className={classes.root}>
-      <Button
-        className={classes.button}
-        variant="contained"
-        color="primary"
-        disableElevation
-      >
-        <span>All</span>
-        <span className={classes.indicator}>•</span>
-      </Button>
-      <Button className={classes.button} disableElevation>
-        <span>Home</span>
-        <span className={classes.indicator}>•</span>
-      </Button>
-      <Button className={classes.button} disableElevation>
-        <span>Work</span>
-        <span className={classes.indicator}>•</span>
-      </Button>
-      <Button className={classes.button} disableElevation>
-        <span>Personal</span>
-        <span className={classes.indicator}>•</span>
-      </Button>
+      <ControlButton
+        name="All"
+        type="primary"
+        active={activeCategory === 'All'}
+        onClick={() => setActiveCategory('All')}
+        displayIndicator={false}
+      ></ControlButton>
+
+      {categories.map((category, index) => (
+        <ControlButton
+          name={category}
+          type={notesCategories[category]}
+          active={activeCategory === category}
+          onClick={setActiveCategory}
+          key={index}
+        ></ControlButton>
+      ))}
     </div>
   )
 }

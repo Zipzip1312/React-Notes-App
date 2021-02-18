@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -11,16 +11,25 @@ import notesCategories from 'util/NotesCategories'
 import theme from 'theme'
 import { useStyles } from 'styles/note'
 
-export default function Note({ note }) {
+export default function Note({ note, onEdit, onDelete }) {
   const classes = useStyles()
-  const [completed, setCompleted] = useState(note.completed)
   const noteBackground = note.completed
     ? theme.palette.grey.main
     : theme.palette[notesCategories[note.category]].main
+  const [completed, setCompleted] = useState(note.completed)
 
-  const handleCompletion = (e) => {
-    e.preventDefault()
-    setCompleted(!completed)
+  const isInitialMount = useRef(true)
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+    } else {
+      console.log(`Note ${note.title} completed: ${completed}`)
+    }
+  }, [completed, note])
+
+  const deleteHandler = (note) => {
+    console.log('if user confirms delete')
+    onDelete(note)
   }
 
   return (
@@ -28,7 +37,7 @@ export default function Note({ note }) {
       <CardContent className={completed ? classes.completed : ''}>
         <Checkbox
           checked={completed}
-          onChange={handleCompletion}
+          onChange={() => setCompleted(!completed)}
           className={classes.iconBtn}
           style={{ left: '.2em' }}
         />
@@ -37,6 +46,7 @@ export default function Note({ note }) {
           aria-label="edit"
           className={classes.iconBtn}
           style={{ right: '1.8em' }}
+          onClick={() => onEdit(note)}
         >
           <EditIcon />
         </IconButton>
@@ -45,6 +55,7 @@ export default function Note({ note }) {
           aria-label="delete"
           className={classes.iconBtn}
           style={{ right: '.2em' }}
+          onClick={() => deleteHandler(note)}
         >
           <DeleteIcon />
         </IconButton>
@@ -52,7 +63,7 @@ export default function Note({ note }) {
         <Typography
           className={classes.title}
           gutterBottom
-          onClick={handleCompletion}
+          onClick={() => setCompleted(!completed)}
         >
           {note.title}
         </Typography>

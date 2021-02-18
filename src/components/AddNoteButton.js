@@ -5,6 +5,10 @@ import { useStyles } from 'styles/addNoteBtn'
 export default function AddNoteButton() {
   const classes = useStyles()
 
+  const showAddNoteForm = () => {
+    console.log('Show add note form')
+  }
+
   return (
     <>
       <Button
@@ -12,6 +16,7 @@ export default function AddNoteButton() {
         color="primary"
         className={classes.button}
         startIcon={<AddIcon />}
+        onClick={showAddNoteForm}
       >
         Add note
       </Button>

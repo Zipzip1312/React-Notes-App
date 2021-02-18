@@ -1,6 +1,6 @@
 const categories = {
-  Home: 'warning',
-  Work: 'primary',
+  Home: 'danger',
+  Work: 'info',
   Personal: 'success'
 }
 

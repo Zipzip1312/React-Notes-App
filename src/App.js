@@ -6,15 +6,20 @@ import ProgressionIndicator from 'components/ProgressionIndicator'
 import NotesList from 'components/NotesList'
 import Grid from '@material-ui/core/Grid'
 import { useStyles } from 'styles/main'
+import NotesManager from 'util/NotesManager'
 
 function App() {
   const classes = useStyles()
+
+  const onSearch = (value) => {
+    console.log('Filter notes by value: ', value)
+  }
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3} direction="column" className="notes">
         <Grid item xs={12}>
-          <SearchBox />
+          <SearchBox onChange={onSearch} />
         </Grid>
         <Grid item container>
           <Grid item sm={8} xs={12} container>
@@ -25,7 +30,7 @@ function App() {
           </Grid>
         </Grid>
         <Grid item>
-          <ProgressionIndicator />
+          <ProgressionIndicator progress={NotesManager.progress} />
         </Grid>
         <NotesList />
       </Grid>

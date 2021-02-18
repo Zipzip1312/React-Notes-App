@@ -7,19 +7,13 @@ export const useStyles = makeStyles((theme) => ({
     }
   },
   button: {
-    '&.MuiButton-containedPrimary': {
-      color: '#fff'
-    },
-    '&:not(.MuiButton-containedPrimary)': {
-      opacity: '.5',
-      '&:hover': {
-        backgroundColor: 'transparent'
-      }
-    },
     minWidth: '89px',
     position: 'relative',
     fontWeight: 400,
-    textTransform: 'none'
+    textTransform: 'none',
+    '&.MuiButton-contained': {
+      color: '#fff'
+    }
   },
   indicator: {
     position: 'absolute',
