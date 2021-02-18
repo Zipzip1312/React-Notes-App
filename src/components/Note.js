@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -7,61 +6,29 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import Typography from '@material-ui/core/Typography'
+import DateFormatter from 'util/DateFormatter'
+import notesCategories from 'util/NotesCategories'
+import theme from 'theme'
+import { useStyles } from 'styles/note'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'relative',
-    backgroundColor: theme.palette.success.main,
-    color: '#fff',
-    boxShadow: '0 3px 6px #00000029'
-  },
-  iconBtn: {
-    position: 'absolute',
-    top: '.4em',
-    color: '#fff',
-    padding: '.2em',
-    opacity: '.6',
-    '&.Mui-checked': {
-      color: 'inherit'
-    }
-  },
-  title: {
-    fontSize: '1.2em',
-    color: 'inherit',
-    fontWeight: 500,
-    marginLeft: '2em',
-    marginRight: '4em',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    cursor: 'pointer'
-  },
-  noteDescription: {
-    height: '5.7em',
-    overflow: 'hidden'
-  },
-  noteDate: {
-    fontWeight: 500,
-    opacity: '.6',
-    margin: '1em 0 -.6em'
-  }
-}))
-
-export default function Note({ data }) {
+export default function Note({ note }) {
   const classes = useStyles()
-  const [checked, setChecked] = useState(false)
+  const [completed, setCompleted] = useState(note.completed)
+  const noteBackground = note.completed
+    ? theme.palette.grey.main
+    : theme.palette[notesCategories[note.category]].main
 
-  const handleChange = (e) => {
+  const handleCompletion = (e) => {
     e.preventDefault()
-    setChecked(!checked)
+    setCompleted(!completed)
   }
 
   return (
-    <Card className={classes.root}>
-      <CardContent>
+    <Card className={classes.root} style={{ backgroundColor: noteBackground }}>
+      <CardContent className={completed ? classes.completed : ''}>
         <Checkbox
-          checked={checked}
-          onChange={handleChange}
+          checked={completed}
+          onChange={handleCompletion}
           className={classes.iconBtn}
           style={{ left: '.2em' }}
         />
@@ -85,9 +52,9 @@ export default function Note({ data }) {
         <Typography
           className={classes.title}
           gutterBottom
-          onClick={handleChange}
+          onClick={handleCompletion}
         >
-          Meeting with Jane and John Meeting with Jane and John
+          {note.title}
         </Typography>
 
         <Typography
@@ -95,12 +62,7 @@ export default function Note({ data }) {
           component="p"
           className={classes.noteDescription}
         >
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita!!! Lorem ipsum dolor sit amet, consetetur sadipscing
-          elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-          magna aliquyam erat
+          {note.description}
         </Typography>
 
         <Typography
@@ -108,7 +70,7 @@ export default function Note({ data }) {
           component="div"
           className={classes.noteDate}
         >
-          Jan 25, 2021
+          {DateFormatter(note.date)}
         </Typography>
       </CardContent>
     </Card>

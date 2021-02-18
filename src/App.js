@@ -1,21 +1,11 @@
-import './css/App.css'
-import SearchBox from './components/SearchBox'
-import ControlButtons from './components/ControlButtons'
-import AddNoteButton from './components/AddNoteButton'
-import ProgressionIndicator from './components/ProgressionIndicator'
-import NotesList from './components/NotesList'
-
-import { makeStyles } from '@material-ui/core/styles'
+import 'css/App.css'
+import SearchBox from 'components/SearchBox'
+import ControlButtons from 'components/ControlButtons'
+import AddNoteButton from 'components/AddNoteButton'
+import ProgressionIndicator from 'components/ProgressionIndicator'
+import NotesList from 'components/NotesList'
 import Grid from '@material-ui/core/Grid'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: '100%',
-    margin: '5em auto 2em',
-    width: '854px',
-    padding: '15px'
-  }
-}))
+import { useStyles } from 'styles/main'
 
 function App() {
   const classes = useStyles()

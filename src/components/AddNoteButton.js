@@ -1,14 +1,6 @@
 import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/core/styles'
 import AddIcon from '@material-ui/icons/Add'
-
-const useStyles = makeStyles((theme) => ({
-  button: {
-    color: '#fff',
-    float: 'right',
-    backgroundColor: theme.palette.primary.dark
-  }
-}))
+import { useStyles } from 'styles/addNoteBtn'
 
 export default function AddNoteButton() {
   const classes = useStyles()
