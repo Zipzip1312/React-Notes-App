@@ -4,7 +4,8 @@ export const useStyles = makeStyles({
   root: {
     position: 'relative',
     color: '#fff',
-    boxShadow: '0 3px 6px #00000029'
+    boxShadow: '0 3px 6px #00000029',
+    overflow: 'visible'
   },
   iconBtn: {
     position: 'absolute',
@@ -38,5 +39,18 @@ export const useStyles = makeStyles({
   },
   completed: {
     textDecoration: 'line-through'
+  },
+  deleteDialog: {
+    '& .MuiDialog-paper': {
+      borderRadius: 0,
+      boxShadow: '0 3px 6px #00000029'
+    },
+    '& .MuiDialog-paperWidthSm': {
+      minWidth: '25em'
+    },
+    '& .MuiDialogTitle-root': {
+      fontSize: '1em',
+      color: '#00000099'
+    }
   }
 })

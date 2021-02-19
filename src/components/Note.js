@@ -3,9 +3,9 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Checkbox from '@material-ui/core/Checkbox'
 import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import Typography from '@material-ui/core/Typography'
+import DeleteNoteButton from 'components/DeleteNoteButton'
 import DateFormatter from 'util/DateFormatter'
 import notesCategories from 'util/NotesCategories'
 import theme from 'theme'
@@ -27,10 +27,7 @@ export default function Note({ note, onEdit, onDelete }) {
     }
   }, [completed, note])
 
-  const deleteHandler = (note) => {
-    console.log('if user confirms delete')
-    onDelete(note)
-  }
+  const deleteHandler = () => onDelete(note)
 
   return (
     <Card className={classes.root} style={{ backgroundColor: noteBackground }}>
@@ -51,14 +48,7 @@ export default function Note({ note, onEdit, onDelete }) {
           <EditIcon />
         </IconButton>
 
-        <IconButton
-          aria-label="delete"
-          className={classes.iconBtn}
-          style={{ right: '.2em' }}
-          onClick={() => deleteHandler(note)}
-        >
-          <DeleteIcon />
-        </IconButton>
+        <DeleteNoteButton onDelete={deleteHandler} />
 
         <Typography
           className={classes.title}

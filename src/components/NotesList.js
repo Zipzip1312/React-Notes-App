@@ -2,14 +2,8 @@ import Grid from '@material-ui/core/Grid'
 import Note from 'components/Note'
 import notesManager from 'util/NotesManager'
 
-export default function NotesList() {
+export default function NotesList({ onEdit, onDelete }) {
   const notes = notesManager.getNotes()
-  const onEdit = (note) => {
-    console.log(`${note.title} was edited`)
-  }
-  const onDelete = (note) => {
-    console.log(`${note.title} was deleted`)
-  }
 
   return (
     <Grid item container spacing={2}>

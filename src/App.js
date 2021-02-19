@@ -1,18 +1,28 @@
 import 'css/App.css'
+import { useState } from 'react'
 import SearchBox from 'components/SearchBox'
 import ControlButtons from 'components/ControlButtons'
 import AddNoteButton from 'components/AddNoteButton'
 import ProgressionIndicator from 'components/ProgressionIndicator'
 import NotesList from 'components/NotesList'
+import NotesForm from 'components/NotesForm'
 import Grid from '@material-ui/core/Grid'
 import { useStyles } from 'styles/main'
 import NotesManager from 'util/NotesManager'
 
 function App() {
   const classes = useStyles()
+  const [showNotesForm, setShowNotesForm] = useState(false)
 
   const onSearch = (value) => {
     console.log('Filter notes by value: ', value)
+  }
+
+  const handleEditNote = (note) => {
+    console.log('handleEditNote(note)')
+  }
+  const handleDeleteNote = (note) => {
+    console.log('handleDeleteNote(note)')
   }
 
   return (
@@ -26,14 +36,21 @@ function App() {
             <ControlButtons />
           </Grid>
           <Grid item sm={4} xs={12}>
-            <AddNoteButton />
+            <AddNoteButton onClick={() => setShowNotesForm(true)} />
           </Grid>
         </Grid>
         <Grid item>
           <ProgressionIndicator progress={NotesManager.progress} />
         </Grid>
-        <NotesList />
+        <NotesList
+          onEdit={(note) => handleEditNote(note)}
+          onDelete={(note) => handleDeleteNote(note)}
+        />
       </Grid>
+      <NotesForm
+        showNotesForm={showNotesForm}
+        onHideNotesForm={() => setShowNotesForm(false)}
+      />
     </div>
   )
 }

@@ -1,6 +1,11 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+// import { createMuiTheme } from '@material-ui/core/styles'
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core'
 
 const theme = createMuiTheme({
+  wrapper: {
+    width: '100%',
+    maxWidth: '824px'
+  },
   palette: {
     primary: {
       main: '#69BCFF',
