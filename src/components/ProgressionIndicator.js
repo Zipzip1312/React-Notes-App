@@ -10,10 +10,13 @@ export default function ProgressionIndicator() {
   const currentProgress = (100 / notesCount) * completedNotesCount
 
   return (
-    <div className={classes.root}>
-      <div
-        className={classes.infoText}
-      >{`You have ${completedNotesCount}/${notesCount} notes completed`}</div>
+    <div
+      className={classes.root}
+      style={{ display: notesCount ? 'block' : 'none' }}
+    >
+      <div className={classes.infoText}>
+        {`You have ${completedNotesCount}/${notesCount} notes completed`}
+      </div>
       <LinearProgress variant="determinate" value={currentProgress} />
     </div>
   )
