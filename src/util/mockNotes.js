@@ -84,7 +84,7 @@ const mockNotes = [
     id: 10,
     title: 'Sagittis nam',
     description:
-      'proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut',
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor',
     category: 'Personal',
     completed: false,
     date: '2021-01-27T05:46:34Z'

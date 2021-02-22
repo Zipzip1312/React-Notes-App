@@ -9,85 +9,102 @@ import InputBase from '@material-ui/core/InputBase'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-import { useStyles } from 'styles/notesForm'
+import { useStyles } from 'styles/NotesFormStyle'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleNotesForm, createUpdateNote } from 'redux/notesReducer'
+import notesCategories from 'util/NotesCategories'
 
-export default function NotesForm({ showNotesForm = false, onHideNotesForm }) {
+export default function NotesForm() {
+  const initialFormState = { title: '', description: '', category: '' }
   const classes = useStyles()
-  const [open, setOpen] = useState(showNotesForm)
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [category, setCategory] = useState('')
+  const isOpened = useSelector((store) => store.notes.showNotesForm)
+  const noteToEdit = useSelector((store) => store.notes.noteToEdit)
+  const [form, setForm] = useState(initialFormState)
+  const categories = Object.keys(notesCategories)
+  const dispatch = useDispatch()
+
+  useEffect(() => noteToEdit && setForm(noteToEdit), [noteToEdit])
 
   const handleClose = () => {
-    setOpen(false)
-    onHideNotesForm()
+    setForm(initialFormState)
+    dispatch(toggleNotesForm())
   }
-  const handleSubmit = () => {
-    console.log(title, description, category)
+  const updateForm = (key, value) => setForm({ ...form, [key]: value })
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    handleClose()
+    dispatch(createUpdateNote(form))
   }
-
-  useEffect(() => {
-    setOpen(showNotesForm)
-  }, [showNotesForm])
 
   return (
     <div>
       <Dialog
-        open={open}
+        open={isOpened}
         onClose={handleClose}
         aria-labelledby="notes-dialog-title"
         aria-describedby="notes-dialog-form"
         className={classes.root}
       >
         <DialogTitle id="notes-dialog-title" disableTypography>
-          {'Update note'}
+          {noteToEdit ? 'Update note' : 'Add note'}
         </DialogTitle>
-        <DialogContent>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={8}>
-              <InputBase
-                placeholder="Add title…"
-                className={classes.input}
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
-              />
-              <TextareaAutosize
-                rows={8}
-                placeholder="Add description…"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-                className={`${classes.input} ${classes.textarea}`}
-              />
+        <form onSubmit={handleSubmit}>
+          <DialogContent>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={8}>
+                <InputBase
+                  placeholder="Add title…"
+                  className={classes.input}
+                  value={form.title}
+                  onChange={(event) => updateForm('title', event.target.value)}
+                  required={true}
+                />
+                <TextareaAutosize
+                  rows={8}
+                  placeholder="Add description…"
+                  value={form.description}
+                  onChange={(event) =>
+                    updateForm('description', event.target.value)
+                  }
+                  className={`${classes.input} ${classes.textarea}`}
+                  required={true}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Select
+                  value={form.category}
+                  onChange={(event) =>
+                    updateForm('category', event.target.value)
+                  }
+                  displayEmpty
+                  className={classes.input}
+                  required={true}
+                >
+                  <MenuItem value="" disabled>
+                    Select category
+                  </MenuItem>
+                  {categories.map((category, index) => (
+                    <MenuItem value={category} key={index}>
+                      {category}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <Select
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
-                displayEmpty
-                className={classes.input}
-              >
-                <MenuItem value="" disabled>
-                  Select category
-                </MenuItem>
-                <MenuItem value={'Home'}>Home</MenuItem>
-                <MenuItem value={'Work'}>Work</MenuItem>
-                <MenuItem value={'Personal'}>Personal</MenuItem>
-              </Select>
+          </DialogContent>
+          <DialogActions>
+            <Grid container spacing={3} className={classes.formActionButtons}>
+              <Grid item xs={12}>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button type="submit" color="primary" autoFocus>
+                  {noteToEdit ? 'Update' : 'Add'}
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        </DialogContent>
-        <DialogActions>
-          <Grid container spacing={3} className={classes.formActionButtons}>
-            <Grid item xs={12}>
-              <Button onClick={handleClose} color="primary">
-                Cancel
-              </Button>
-              <Button onClick={handleSubmit} color="primary" autoFocus>
-                {'Update'}
-              </Button>
-            </Grid>
-          </Grid>
-        </DialogActions>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   )

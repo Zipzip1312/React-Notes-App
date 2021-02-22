@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -8,33 +8,30 @@ import Typography from '@material-ui/core/Typography'
 import DeleteNoteButton from 'components/DeleteNoteButton'
 import DateFormatter from 'util/DateFormatter'
 import notesCategories from 'util/NotesCategories'
+import { useStyles } from 'styles/NoteStyle'
+import { useDispatch } from 'react-redux'
+import { toggleNoteStatus } from 'redux/notesReducer'
 import theme from 'theme'
-import { useStyles } from 'styles/note'
 
 export default function Note({ note, onEdit, onDelete }) {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const noteBackground = note.completed
     ? theme.palette.grey.main
     : theme.palette[notesCategories[note.category]].main
   const [completed, setCompleted] = useState(note.completed)
 
-  const isInitialMount = useRef(true)
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false
-    } else {
-      console.log(`Note ${note.title} completed: ${completed}`)
-    }
-  }, [completed, note])
-
-  const deleteHandler = () => onDelete(note)
+  const toggleStatus = () => {
+    setCompleted(!completed)
+    dispatch(toggleNoteStatus(note.id))
+  }
 
   return (
     <Card className={classes.root} style={{ backgroundColor: noteBackground }}>
       <CardContent className={completed ? classes.completed : ''}>
         <Checkbox
           checked={completed}
-          onChange={() => setCompleted(!completed)}
+          onChange={toggleStatus}
           className={classes.iconBtn}
           style={{ left: '.2em' }}
         />
@@ -48,12 +45,12 @@ export default function Note({ note, onEdit, onDelete }) {
           <EditIcon />
         </IconButton>
 
-        <DeleteNoteButton onDelete={deleteHandler} />
+        <DeleteNoteButton onDelete={() => onDelete(note)} />
 
         <Typography
           className={classes.title}
           gutterBottom
-          onClick={() => setCompleted(!completed)}
+          onClick={toggleStatus}
         >
           {note.title}
         </Typography>

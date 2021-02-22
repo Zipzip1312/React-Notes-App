@@ -1,9 +1,12 @@
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
-import { useStyles } from 'styles/addNoteBtn'
+import { useStyles } from 'styles/AddNoteButtonStyle'
+import { useDispatch } from 'react-redux'
+import { toggleNotesForm } from 'redux/notesReducer'
 
 export default function AddNoteButton({ onClick }) {
   const classes = useStyles()
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -12,7 +15,7 @@ export default function AddNoteButton({ onClick }) {
         color="primary"
         className={classes.button}
         startIcon={<AddIcon />}
-        onClick={onClick}
+        onClick={() => dispatch(toggleNotesForm())}
       >
         Add note
       </Button>

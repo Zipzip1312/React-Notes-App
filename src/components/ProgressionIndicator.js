@@ -1,33 +1,19 @@
-// import { useState, useEffect } from 'react'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import { useStyles } from 'styles/progressionIndicator'
+import { useStyles } from 'styles/ProgressionIndicatorStyle'
+import { useSelector } from 'react-redux'
 
-export default function ProgressionIndicator({ progress }) {
+export default function ProgressionIndicator() {
   const classes = useStyles()
-  const currentProgress = (100 / progress.notes) * progress.completed
-  // const [progress, setProgress] = useState(25)
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setProgress((oldProgress) => {
-  //       if (oldProgress === 100) {
-  //         return 0
-  //       }
-  //       const diff = Math.random() * 10
-  //       return Math.min(oldProgress + diff, 100)
-  //     })
-  //   }, 500)
-
-  //   return () => {
-  //     clearInterval(timer)
-  //   }
-  // }, [])
+  const notes = useSelector((state) => state.notes.all)
+  const notesCount = notes.length
+  const completedNotesCount = notes.filter((note) => note.completed).length
+  const currentProgress = (100 / notesCount) * completedNotesCount
 
   return (
     <div className={classes.root}>
       <div
         className={classes.infoText}
-      >{`You have ${progress.completed}/${progress.notes} notes completed`}</div>
+      >{`You have ${completedNotesCount}/${notesCount} notes completed`}</div>
       <LinearProgress variant="determinate" value={currentProgress} />
     </div>
   )

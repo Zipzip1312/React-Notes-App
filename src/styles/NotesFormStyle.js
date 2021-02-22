@@ -24,14 +24,17 @@ export const useStyles = makeStyles((theme) => ({
     width: '100%',
     minHeight: 44,
     padding: '.2em 1em',
-    fontSize: '1em',
+    fontSize: '1.25em',
     color: '#00000099',
     background: '#F4F4F4',
     border: 'none',
     borderRadius: '4px 4px 0 0',
     marginBottom: '1.5em',
     lineHeight: '1.5',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    '& .MuiInputBase-input::placeholder': {
+      opacity: 0.9
+    },
     '&:focus, .MuiSelect-select:focus': {
       outline: 'none',
       background: '#F4F4F4'
@@ -45,7 +48,8 @@ export const useStyles = makeStyles((theme) => ({
     paddingTop: '1em',
     paddingBottom: '2em',
     marginBottom: 0,
-    fontSize: '1.1em'
+    fontSize: '1.25em',
+    fontFamily: 'inherit'
   },
   formActionButtons: {
     textAlign: 'right',

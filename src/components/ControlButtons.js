@@ -1,16 +1,14 @@
-import { useState, useEffect } from 'react'
 import ControlButton from 'components/ControlButton'
-import { useStyles } from 'styles/controlBtn'
+import { useStyles } from 'styles/ControlButtonsStyle'
+import { useSelector, useDispatch } from 'react-redux'
+import { activateCategory } from 'redux/notesReducer'
 import notesCategories from 'util/NotesCategories'
 
 export default function ControlButtons() {
   const classes = useStyles()
   const categories = Object.keys(notesCategories)
-  const [activeCategory, setActiveCategory] = useState('All')
-
-  useEffect(() => {
-    console.log('Active category changed to: ', activeCategory)
-  }, [activeCategory])
+  const activeCategory = useSelector((state) => state.notes.activeCategory)
+  const dispatch = useDispatch()
 
   return (
     <div className={classes.root}>
@@ -18,7 +16,7 @@ export default function ControlButtons() {
         name="All"
         type="primary"
         active={activeCategory === 'All'}
-        onClick={() => setActiveCategory('All')}
+        onClick={() => dispatch(activateCategory('All'))}
         displayIndicator={false}
       ></ControlButton>
 
@@ -27,7 +25,7 @@ export default function ControlButtons() {
           name={category}
           type={notesCategories[category]}
           active={activeCategory === category}
-          onClick={setActiveCategory}
+          onClick={() => dispatch(activateCategory(category))}
           key={index}
         ></ControlButton>
       ))}
