@@ -4,7 +4,7 @@ import { useStyles } from 'styles/AddNoteButtonStyle'
 import { useDispatch } from 'react-redux'
 import { toggleNotesForm } from 'redux/notesReducer'
 
-export default function AddNoteButton({ onClick }) {
+export default function AddNoteButton() {
   const classes = useStyles()
   const dispatch = useDispatch()
 

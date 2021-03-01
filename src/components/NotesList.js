@@ -1,34 +1,25 @@
+import { useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Note from 'components/Note'
 import NoNotesIllustration from 'components/NoNotesIllustration'
+import PendingNotes from 'components/PendingNotes'
 import { useSelector, useDispatch } from 'react-redux'
-import { editNote, deleteNote } from 'redux/notesReducer'
+import { getNotes, editNote, deleteNote } from 'redux/notesReducer'
 
-export default function NotesList({ onEdit, onDelete }) {
-  const notes = useSelector((state) => state.notes.all)
-  const searchValue = useSelector((state) => state.notes.searchValue)
-  const activeCategory = useSelector((state) => state.notes.activeCategory)
-  let sortedNotes = [...notes].sort((a, b) => {
-    if (a.completed === b.completed) return new Date(b.date) - new Date(a.date)
-    return b.completed ? -1 : 1
-  })
+export default function NotesList() {
+  const sortedNotes = useSelector((state) => state.notes.sorted)
+  const pending = useSelector((state) => state.notes.pending)
   const dispatch = useDispatch()
 
-  if (activeCategory !== 'All') {
-    sortedNotes = sortedNotes.filter((n) => n.category === activeCategory)
-  }
+  useEffect(() => {
+    dispatch(getNotes())
+  }, [dispatch])
 
-  if (searchValue) {
-    sortedNotes = sortedNotes.filter(
-      ({ title, description }) =>
-        title.toLowerCase().includes(searchValue.toLowerCase()) ||
-        description.toLowerCase().includes(searchValue.toLowerCase())
-    )
-  }
+  if (pending) return <PendingNotes />
 
   return (
     <Grid item container spacing={2}>
-      {notes.length === 0 || sortedNotes.length === 0 ? (
+      {sortedNotes.length === 0 ? (
         <NoNotesIllustration />
       ) : (
         sortedNotes.map((note) => (

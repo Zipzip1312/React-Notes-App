@@ -1,7 +1,7 @@
 import ControlButton from 'components/ControlButton'
 import { useStyles } from 'styles/ControlButtonsStyle'
 import { useSelector, useDispatch } from 'react-redux'
-import { activateCategory } from 'redux/notesReducer'
+import { setActiveCategory } from 'redux/notesReducer'
 import notesCategories from 'util/NotesCategories'
 
 export default function ControlButtons() {
@@ -16,7 +16,7 @@ export default function ControlButtons() {
         name="All"
         type="primary"
         active={activeCategory === 'All'}
-        onClick={() => dispatch(activateCategory('All'))}
+        onClick={() => dispatch(setActiveCategory('All'))}
         displayIndicator={false}
       ></ControlButton>
 
@@ -25,7 +25,7 @@ export default function ControlButtons() {
           name={category}
           type={notesCategories[category]}
           active={activeCategory === category}
-          onClick={() => dispatch(activateCategory(category))}
+          onClick={() => dispatch(setActiveCategory(category))}
           key={index}
         ></ControlButton>
       ))}

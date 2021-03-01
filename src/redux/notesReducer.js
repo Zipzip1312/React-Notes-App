@@ -4,17 +4,19 @@ import mockNotes from 'util/mockNotes'
 export const slice = createSlice({
   name: 'notes',
   initialState: {
-    all: mockNotes,
+    all: [],
+    sorted: [],
     searchValue: '',
     activeCategory: 'All',
     showNotesForm: false,
-    noteToEdit: undefined
+    noteToEdit: undefined,
+    pending: true
   },
   reducers: {
     setSearchValue: (state, action) => {
       state.searchValue = action.payload
     },
-    activateCategory: (state, action) => {
+    setActiveCategory: (state, action) => {
       state.activeCategory = action.payload
     },
     toggleNotesForm: (state) => {
@@ -22,7 +24,7 @@ export const slice = createSlice({
       state.noteToEdit = undefined
     },
     createUpdateNote: (state, action) => {
-      const date = generateDate()
+      const date = now()
       if (!action.payload.id) {
         // create new note
         const id = generateNoteId(state.all)
@@ -41,18 +43,49 @@ export const slice = createSlice({
     },
     editNote: (state, action) => {
       state.noteToEdit = state.all.filter(({ id }) => id === action.payload)[0]
-      state.showNotesForm = !state.showNotesForm
+      state.showNotesForm = true
     },
     toggleNoteStatus: (state, action) => {
       state.all.forEach((note) => {
         if (note.id === action.payload) {
-          // note.date = generateDate()
+          // note.date = now()
           note.completed = !note.completed
         }
       })
     },
     deleteNote: (state, action) => {
       state.all = state.all.filter(({ id }) => id !== action.payload)
+    },
+    sortAndFilter: (state) => {
+      let sortedNotes = [...state.all].sort((a, b) => {
+        if (a.completed === b.completed)
+          return new Date(b.date) - new Date(a.date)
+        return b.completed ? -1 : 1
+      })
+
+      if (state.activeCategory !== 'All') {
+        sortedNotes = sortedNotes.filter(
+          (n) => n.category === state.activeCategory
+        )
+      }
+
+      if (state.searchValue) {
+        sortedNotes = sortedNotes.filter(
+          ({ title, description }) =>
+            title.toLowerCase().includes(state.searchValue.toLowerCase()) ||
+            description.toLowerCase().includes(state.searchValue.toLowerCase())
+        )
+      }
+
+      state.sorted = sortedNotes
+    },
+    saveNotes: (state) => {
+      localStorage.setItem('notes', JSON.stringify(state.all))
+    },
+    getNotes: (state) => {
+      const savedNotes = localStorage.getItem('notes')
+      state.all = savedNotes ? JSON.parse(savedNotes) : []
+      state.pending = false
     }
   }
 })
@@ -66,31 +99,19 @@ const generateNoteId = (notes) => {
   )
 }
 
-const generateDate = () => new Date().getTime()
+const now = () => new Date().getTime()
 
 export const {
   setSearchValue,
-  activateCategory,
+  setActiveCategory,
   toggleNotesForm,
   createUpdateNote,
   editNote,
   toggleNoteStatus,
-  deleteNote
+  deleteNote,
+  sortAndFilter,
+  saveNotes,
+  getNotes
 } = slice.actions
-
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched
-// export const incrementAsync = (amount) => (dispatch) => {
-//   setTimeout(() => {
-//     dispatch(incrementByAmount(amount))
-//   }, 1000)
-// }
-
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state) => state.counter.value)`
-// export const selectCount = (state) => state.counter.value
 
 export default slice.reducer
