@@ -18,7 +18,7 @@ export default function NotesList() {
   if (pending) return <PendingNotes />
 
   return (
-    <Grid item container spacing={2}>
+    <Grid container spacing={2}>
       {sortedNotes.length === 0 ? (
         <NoNotesIllustration />
       ) : (

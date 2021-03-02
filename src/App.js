@@ -24,10 +24,12 @@ function App() {
             <AddNoteButton />
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <ProgressionIndicator />
         </Grid>
-        <NotesList />
+        <Grid item xs={12}>
+          <NotesList />
+        </Grid>
       </Grid>
       <NotesForm />
     </div>
