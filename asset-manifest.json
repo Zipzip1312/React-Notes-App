@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/React-Notes-App/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/React-Notes-App/static/js/main.4761422a.chunk.js",
-    "main.js.map": "/React-Notes-App/static/js/main.4761422a.chunk.js.map",
+    "main.js": "/React-Notes-App/static/js/main.47ebe618.chunk.js",
+    "main.js.map": "/React-Notes-App/static/js/main.47ebe618.chunk.js.map",
     "runtime-main.js": "/React-Notes-App/static/js/runtime-main.82ce2028.js",
     "runtime-main.js.map": "/React-Notes-App/static/js/runtime-main.82ce2028.js.map",
-    "static/js/2.0548e5ce.chunk.js": "/React-Notes-App/static/js/2.0548e5ce.chunk.js",
-    "static/js/2.0548e5ce.chunk.js.map": "/React-Notes-App/static/js/2.0548e5ce.chunk.js.map",
+    "static/js/2.dfc601da.chunk.js": "/React-Notes-App/static/js/2.dfc601da.chunk.js",
+    "static/js/2.dfc601da.chunk.js.map": "/React-Notes-App/static/js/2.dfc601da.chunk.js.map",
     "static/js/3.b2a17e9d.chunk.js": "/React-Notes-App/static/js/3.b2a17e9d.chunk.js",
     "static/js/3.b2a17e9d.chunk.js.map": "/React-Notes-App/static/js/3.b2a17e9d.chunk.js.map",
     "index.html": "/React-Notes-App/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/React-Notes-App/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.0548e5ce.chunk.js.LICENSE.txt": "/React-Notes-App/static/js/2.0548e5ce.chunk.js.LICENSE.txt",
+    "static/js/2.dfc601da.chunk.js.LICENSE.txt": "/React-Notes-App/static/js/2.dfc601da.chunk.js.LICENSE.txt",
     "static/media/add-note-illustration.f6b9abf9.svg": "/React-Notes-App/static/media/add-note-illustration.f6b9abf9.svg",
     "static/media/search-image.26d77b9a.svg": "/React-Notes-App/static/media/search-image.26d77b9a.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.82ce2028.js",
-    "static/js/2.0548e5ce.chunk.js",
+    "static/js/2.dfc601da.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.4761422a.chunk.js"
+    "static/js/main.47ebe618.chunk.js"
   ]
 }
