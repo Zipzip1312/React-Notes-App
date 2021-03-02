@@ -12,5 +12,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   illustration: {
     marginTop: '4em'
+  },
+  [theme.breakpoints.down('xs')]: {
+    heading: {
+      marginTop: '0',
+      fontSize: '2em'
+    }
   }
 }))

@@ -46,7 +46,10 @@ export const useStyles = makeStyles({
       boxShadow: '0 3px 6px #00000029'
     },
     '& .MuiDialog-paperWidthSm': {
-      minWidth: '25em'
+      width: '100%',
+      maxWidth: '350px',
+      marginLeft: 0,
+      marginRight: 0
     },
     '& .MuiDialogTitle-root': {
       fontSize: '1em',
