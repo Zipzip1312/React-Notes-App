@@ -18,6 +18,7 @@ export const slice = createSlice({
     },
     setActiveCategory: (state, action) => {
       state.activeCategory = action.payload
+      localStorage.setItem('activeCategory', action.payload)
     },
     toggleNotesForm: (state) => {
       state.showNotesForm = !state.showNotesForm
@@ -85,6 +86,7 @@ export const slice = createSlice({
     getNotes: (state) => {
       const savedNotes = localStorage.getItem('notes')
       state.all = savedNotes ? JSON.parse(savedNotes) : []
+      state.activeCategory = localStorage.getItem('activeCategory') ?? 'All'
       state.pending = false
     }
   }
