@@ -21,5 +21,19 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '2em',
     lineHeight: 1,
     color: 'green'
+  },
+  [theme.breakpoints.down('xs')]: {
+    root: {
+      width: '100%',
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between'
+    },
+    button: {
+      width: '45%',
+      marginBottom: '1.5em',
+      marginRight: 0,
+      padding: '12px 8px'
+    }
   }
 }))

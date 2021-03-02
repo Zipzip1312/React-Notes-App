@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { useStyles } from 'styles/NoteStyle'
 
-export default function DeleteNoteButton({ onDelete }) {
+export default function DeleteNoteButton({ title, onDelete }) {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const handleClickOpen = () => setOpen(true)
@@ -45,7 +45,9 @@ export default function DeleteNoteButton({ onDelete }) {
               Delete note?
             </DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-description"></DialogContentText>
+              <DialogContentText id="alert-dialog-description">
+                {title}
+              </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClickClose} color="primary">

@@ -13,7 +13,7 @@ export default function AddNoteButton() {
       <Button
         variant="contained"
         color="primary"
-        className={classes.button}
+        className={classes.root}
         startIcon={<AddIcon />}
         onClick={() => dispatch(toggleNotesForm())}
       >

@@ -45,7 +45,7 @@ export default function Note({ note, onEdit, onDelete }) {
           <EditIcon />
         </IconButton>
 
-        <DeleteNoteButton onDelete={() => onDelete(note)} />
+        <DeleteNoteButton title={note.title} onDelete={() => onDelete(note)} />
 
         <Typography
           className={classes.title}

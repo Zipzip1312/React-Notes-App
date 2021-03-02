@@ -1,5 +1,5 @@
 import SearchBox from 'components/SearchBox'
-import ControlButtons from 'components/ControlButtons'
+import ControlButtonsContainer from 'components/ControlButtonsContainer'
 import AddNoteButton from 'components/AddNoteButton'
 import ProgressionIndicator from 'components/ProgressionIndicator'
 import NotesList from 'components/NotesList'
@@ -17,10 +17,10 @@ function App() {
           <SearchBox />
         </Grid>
         <Grid item container>
-          <Grid item sm={8} xs={12} container>
-            <ControlButtons />
+          <Grid item sm={9} xs={12} container>
+            <ControlButtonsContainer />
           </Grid>
-          <Grid item sm={4} xs={12}>
+          <Grid item sm={3} xs={12}>
             <AddNoteButton />
           </Grid>
         </Grid>
