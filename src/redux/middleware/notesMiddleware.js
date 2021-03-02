@@ -12,7 +12,8 @@ const notesMiddleware = (store) => (next) => (action) => {
   const sortAndFilterActions = [
     'notes/getNotes',
     'notes/setSearchValue',
-    'notes/setActiveCategory'
+    'notes/setActiveCategory',
+    'notes/mockNotes'
   ].concat(notesMutations)
 
   notesMutations.includes(action.type) && store.dispatch(saveNotes())

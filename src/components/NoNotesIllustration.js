@@ -1,5 +1,6 @@
 import addNoteImage from 'images/add-note-illustration.svg'
 import searchNoteImage from 'images/search-image.svg'
+import MockNotesButton from 'components/MockNotesButton'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { useStyles } from 'styles/NoNotesIllustrationStyle'
@@ -18,7 +19,8 @@ export default function NoNotesIllustration() {
       <Typography variant="h4" className={classes.heading}>
         {heading}
       </Typography>
-      <img className={classes.illustration} src={illustration} alt="add note" />
+      <img className={classes.illustration} src={illustration} alt={heading} />
+      {!notes.length && <MockNotesButton />}
     </Grid>
   )
 }

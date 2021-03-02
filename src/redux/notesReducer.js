@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import mockNotes from 'util/mockNotes'
+import mockData from 'util/mockNotes'
 
 export const slice = createSlice({
   name: 'notes',
@@ -88,6 +88,10 @@ export const slice = createSlice({
       state.all = savedNotes ? JSON.parse(savedNotes) : []
       state.activeCategory = localStorage.getItem('activeCategory') ?? 'All'
       state.pending = false
+    },
+    mockNotes: (state) => {
+      state.all = mockData
+      localStorage.setItem('notes', JSON.stringify(mockData))
     }
   }
 })
@@ -113,7 +117,8 @@ export const {
   deleteNote,
   sortAndFilter,
   saveNotes,
-  getNotes
+  getNotes,
+  mockNotes
 } = slice.actions
 
 export default slice.reducer
