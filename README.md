@@ -1,4 +1,4 @@
-Manage your work, home, personal tasks with notes. Add ability to add, edit, delete, and mark them as completed. Additional features include searching, filtering and visualizing completion progress.
+Manage your work, home, personal tasks with notes appX. Add ability to add, edit, delete, and mark them as completed. Additional features include searching, filtering and visualizing completion progress.
 
 ### [DEMO](https://zipzip1312.github.io/React-Notes-App/)
 
